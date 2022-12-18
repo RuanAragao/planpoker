@@ -5,7 +5,26 @@ import styles from '../styles/Home.module.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+
 export default function Home() {
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyB6mO_X6srSdtJoGF5buU5OoaOWcQ3_rec",
+    authDomain: "planningpoker-51cf2.firebaseapp.com",
+    projectId: "planningpoker-51cf2",
+    storageBucket: "planningpoker-51cf2.appspot.com",
+    messagingSenderId: "865562708199",
+    appId: "1:865562708199:web:e432607d3ec543d2453a42"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+
   return (
     <>
       <Head>
@@ -15,7 +34,42 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <div className={styles.description}>
+        <header className="text-3xl font-bold">
+          Panning Poker
+        </header>
+        <div className="md:grid md:grid-cols-3 md:gap-6 center">
+          <form>
+            <div className="col-span-6 sm:col-span-3">
+              <label htmlFor="user-name" className="block text-sm font-medium text-gray-700">
+                User Name
+              </label>
+              <input
+                type="text"
+                id="user-name"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              />
+            </div>
+            <div className="col-span-6 sm:col-span-3">
+              <label htmlFor="room-name" className="block text-sm font-medium text-gray-700">
+                Room Name
+              </label>
+              <input
+                type="text"
+                id="room-name"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              />
+            </div>
+            <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
+              <button
+                type="submit"
+                className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              >
+                Create
+              </button>
+            </div>
+          </form>
+        </div>
+        {/* <div className={styles.description}>
           <p>
             Get started by editing&nbsp;
             <code className={styles.code}>pages/index.tsx</code>
@@ -116,7 +170,7 @@ export default function Home() {
               with&nbsp;Vercel.
             </p>
           </a>
-        </div>
+        </div> */}
       </main>
     </>
   )
