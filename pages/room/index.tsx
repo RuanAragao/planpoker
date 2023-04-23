@@ -3,13 +3,9 @@ import Image from 'next/image'
 import { v4 as uuidv4 } from 'uuid'
 import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.css'
-import axios from 'axios'
+import api from '../../utils/api';
 
 const inter = Inter({ subsets: ['latin'] })
-
-const client = axios.create({
-  baseURL: "/api" 
-});
 
 export default function NewGame() {
   const handlerSubmitted = async (event:any) => {
@@ -21,8 +17,7 @@ export default function NewGame() {
       room: event.target.roomName.value
     }
 
-    // console.log(data);
-    client.post('/games', data).then((response) => {
+    api.post('/games', data).then((response: { data: any }) => {
       console.log(response.data);
     });
     
