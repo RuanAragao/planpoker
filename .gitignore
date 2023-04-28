@@ -103,4 +103,6 @@ dist
 # TernJS port file
 .tern-port
 
-*/serviceAccountKey.json
+utils/db/serviceAccountKey.json
+database.rules.json
+firebaseConfig.js
