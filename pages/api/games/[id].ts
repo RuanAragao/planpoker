@@ -9,9 +9,8 @@ export default async (
   try {
     if (req.method === 'GET') {
       const game = await db.collection('games').doc(id).get();
-      const gameData = game.data();
 
-      res.status(200).json({ gameData });
+      res.status(200).json(game.data());
     }
   } catch (error) {
     res.status(400).end();

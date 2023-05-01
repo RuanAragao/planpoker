@@ -6,13 +6,6 @@ export default async (
   res: NextApiResponse
 ) => {
   try {
-    if (req.method === 'GET') {
-      const games = await db.collection('games').get();
-      const gamesData = games.docs.map(game => game.data());
-
-      res.status(200).json({ gamesData });
-    }
-
     if (req.method === 'POST') {
       const { id } = await db.collection('games').add({
         ...req.body,
