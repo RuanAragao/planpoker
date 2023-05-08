@@ -36,7 +36,7 @@ export default function Home() {
       </Head>
       <main className="container mx-auto px-4 grid grid-flow-row h-screen justify-stretch">
         <header className="flex justify-center items-center">
-          <h1 className="text-3xl font-bold text-center">PlanPoker</h1>
+          <Image src="/logo.webp" alt="Planning Poker" width={168} height={88} />
         </header>
         <div className="grid md:grid-cols-3 gap-6 center">
           <form onSubmit={handlerSubmitted}>
