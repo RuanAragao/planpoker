@@ -41,14 +41,12 @@ export default function Home() {
         <div className="grid md:grid-cols-3 gap-6 center">
           <form onSubmit={handlerSubmitted}>
             <div className="col-span-6 sm:col-span-3">
-              <h2>Insert the room’s name</h2>
-              <label htmlFor="room-name" className="block text-sm font-medium text-gray-700">
-                Game's Name
-              </label>
+              <h2 className="text-lg font-bold py-4">Insert the room’s name</h2>
               <input
                 type="text"
                 id="room-name"
                 name="roomName"
+                placeholder="Game's name"
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               />
             </div>
