@@ -17,7 +17,6 @@ export default function Home() {
 
     const data = {
       gameId: uuidv4(),
-      user: event.target.userName.value,
       room: event.target.roomName.value
     }
 
