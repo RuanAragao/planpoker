@@ -33,14 +33,14 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="container mx-auto px-4 grid grid-flow-row h-screen justify-stretch">
+      <main className="container mx-auto px-4 grid md:grid-flow-col sm:grid-flow-row h-screen justify-stretch">
         <header className="flex justify-center items-center">
           <Image src="/logo.webp" alt="Planning Poker" width={168} height={88} />
         </header>
-        <div className="grid md:grid-cols-3 gap-6 center">
-          <form onSubmit={handlerSubmitted}>
+        <div className="grid gap-6 center flex sm:content-center">
+          <form onSubmit={handlerSubmitted} className="sm:w-2/3">
             <div className="col-span-6 sm:col-span-3">
-              <h2 className="text-lg font-bold py-4">Insert the room’s name</h2>
+              <h2 className="text-lg font-bold my-4">Insert the room’s name</h2>
               <input
                 type="text"
                 id="room-name"
