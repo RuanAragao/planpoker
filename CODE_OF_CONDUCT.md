@@ -8,7 +8,7 @@ We promise to extend courtesy and respect to everyone involved in this project r
 
 If any member of the community violates this code of conduct, the maintainers of this project may take action, including but not limited to removing issues, comments, and contributions or blocking accounts from this project's communication channels.
 
-If you experience or witness unacceptable behavior, or have any other concerns, please report it by emailing ruan.aragao@gmail.com.
+If you experience or witness unacceptable behavior, or have any other concerns, please report it by emailing ruanaragao2@gmail.com.
 
 We are committed to making participation in this project a harassment-free experience for everyone, regardless of the level of experience, gender, gender identity, and expression, sexual orientation, disability, personal appearance, body size, race, ethnicity, age, religion, or nationality.
 
