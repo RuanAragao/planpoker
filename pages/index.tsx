@@ -1,14 +1,37 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { v4 as uuidv4 } from 'uuid'
-import { Inter } from '@next/font/google'
-import styles from '../styles/Home.module.css'
+import Head from "next/head";
+import Image from "next/image";
+import { v4 as uuidv4 } from "uuid";
+import { Inter } from "@next/font/google";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
+
+const createRoomSchema = z.object({
+  username: z
+    .string()
+    .min(4, "Please enter at least 4 characters")
+    .max(50, "Please enter at most 50 characters"),
+  roomName: z
+    .string()
+    .min(4, "Please enter at least 4 characters")
+    .max(50, "Please enter at most 50 characters"),
+});
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set } from "firebase/database";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../components/ui/form";
+import { Input } from "../components/ui/input";
+import { Button } from "../components/ui/button";
 
 export default function Home() {
   // TODO: Add SDKs for Firebase products that you want to use
@@ -23,7 +46,7 @@ export default function Home() {
     messagingSenderId: "865562708199",
     appId: "1:865562708199:web:e432607d3ec543d2453a42",
 
-    databaseURL: "https://planningpoker-51cf2-default-rtdb.firebaseio.com/"
+    databaseURL: "https://planningpoker-51cf2-default-rtdb.firebaseio.com/",
   };
 
   // Initialize Firebase
@@ -32,14 +55,12 @@ export default function Home() {
   // Initialize Realtime Database and get a reference to the service
   const database = getDatabase(firebase);
 
-  const handlerSubmitted = async (event:any) => {
-    event.preventDefault();
-
+  const handlerSubmitted = (values: z.infer<typeof createRoomSchema>) => {
     const data = {
       userId: uuidv4(),
-      user: event.target.userName.value,
-      room: event.target.roomName.value
-    }
+      user: values.username,
+      room: values.roomName,
+    };
 
     // const docRef = db.collection('users').doc('alovelace');
 
@@ -53,7 +74,7 @@ export default function Home() {
     writeUserData(data.userId, data.user, data.room);
   };
 
-  async function writeUserData(userId:any, user:any, room:any) {
+  async function writeUserData(userId: any, user: any, room: any) {
     const db = getDatabase(firebase);
     // const docRef = db.collection('users').doc('alovelace');
 
@@ -62,12 +83,16 @@ export default function Home() {
     //   last: 'Lovelace',
     //   born: 1815
     // });
-    await set(ref(db, 'users/' + userId), {
+    await set(ref(db, "users/" + userId), {
       userId,
       user,
-      room
+      room,
     });
   }
+
+  const form = useForm<z.infer<typeof createRoomSchema>>({
+    resolver: zodResolver(createRoomSchema),
+  });
 
   return (
     <>
@@ -77,50 +102,45 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <header className="text-3xl font-bold">
-          Panning Poker
-        </header>
-        <div className="md:grid md:grid-cols-3 md:gap-6 center">
-          <form onSubmit={handlerSubmitted}>
-            <div className="col-span-6 sm:col-span-3">
-              <label htmlFor="user-name" className="block text-sm font-medium text-gray-700">
-                User Name
-              </label>
-              <input
-                type="text"
-                id="user-name"
-                name="userName"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-              />
-            </div>
-            <div className="col-span-6 sm:col-span-3">
-              <label htmlFor="room-name" className="block text-sm font-medium text-gray-700">
-                Room Name
-              </label>
-              <input
-                type="text"
-                id="room-name"
-                name="roomName"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-              />
-            </div>
-            <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
-              <button
-                type="submit"
-                className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              >
-                Create
-              </button>
+      <main className="min-h-screen flex items-center justify-center  flex-col w-full max-w-screen-sm m-4 mx-auto">
+        <header className="text-3xl font-bold">Panning Poker</header>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(handlerSubmitted)}
+            className="w-full space-y-4"
+          >
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Username</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Enter username" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="roomName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Room Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Enter room name" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <div className="flex items-center justify-end">
+              <Button className="self-end">Create</Button>
             </div>
           </form>
-        </div>
-
-
-
-
-
-
+        </Form>
         {/* <div className={styles.description}>
           <p>
             Get started by editing&nbsp;
@@ -225,5 +245,5 @@ export default function Home() {
         </div> */}
       </main>
     </>
-  )
+  );
 }
